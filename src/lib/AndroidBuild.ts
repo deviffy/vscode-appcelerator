@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as fs from 'fs';
 
 import {AppceleratorBuild} from './AppceleratorBuild';
 
@@ -31,25 +32,49 @@ export class AndroidBuild extends AppceleratorBuild {
 
     public publish() {
         var keystore_path, store_password, alias, key_password;
-        return vscode.window.showInputBox({ prompt: "Enter keystore path:"}).then(_path => {
-            keystore_path = path.resolve(vscode.workspace.rootPath,_path);
-            console.log(keystore_path);
-            return vscode.window.showInputBox({ prompt: "Enter store_password:", password: true})
-        })
-        .then(_store_password => {
-            store_password = _store_password;
-            return vscode.window.showInputBox({ prompt: "Enter alias:"})
-        }).then(_alias => {
-            alias = _alias;
-            return vscode.window.showInputBox({ prompt: "Enter key-password:", password: true})
-        })
-        .then(_key_password => {
-            key_password = _key_password;
-            AppceleratorBuild.executeAppcCommand('run --platform android --target dist-playstore --output-dir dist'+
-                                  ' --keystore ' + keystore_path +
-                                  ' --store-password  ' +  store_password +
-                                  ' --alias ' + alias +
-                                  ' --key-password ' + (key_password || store_password));
-        });
+
+        try {
+            var configText = fs.readFileSync(AppceleratorBuild.getConfigFile(), {"encoding":"utf8"});
+            var config = JSON.parse(configText);
+            keystore_path = config.android.publish.keystore_path;
+            alias = config.android.publish.alias;
+
+            return vscode.window.showInputBox({ prompt: "Enter store_password:", password: true}).then(_store_password => {
+                store_password = _store_password;
+                return vscode.window.showInputBox({ prompt: "Enter key-password:", password: true})
+            })
+            .then(_key_password => {
+                key_password = _key_password;
+                this.execPublish(keystore_path, store_password, alias, key_password);
+            });
+
+        }
+        catch(e) {
+            return vscode.window.showInputBox({ prompt: "Enter keystore path:"}).then(_path => {
+                keystore_path = path.resolve(vscode.workspace.rootPath,_path);
+                console.log(keystore_path);
+                return vscode.window.showInputBox({ prompt: "Enter store_password:", password: true})
+            })
+            .then(_store_password => {
+                store_password = _store_password;
+                return vscode.window.showInputBox({ prompt: "Enter alias:"})
+            }).then(_alias => {
+                alias = _alias;
+                return vscode.window.showInputBox({ prompt: "Enter key-password:", password: true})
+            })
+            .then(_key_password => {
+                key_password = _key_password;
+                this.execPublish(keystore_path, store_password, alias, key_password);
+                fs.writeFile(AppceleratorBuild.getConfigFile(),JSON.stringify({"android":{"publish":{"keystore_path":keystore_path,"alias":alias}}}));
+            });
+        }
+    }
+
+    private execPublish(keystore_path, store_password, alias, key_password) {
+        AppceleratorBuild.executeAppcCommand('run --platform android --target dist-playstore --output-dir dist'+
+                            ' --keystore ' + keystore_path +
+                            ' --store-password  ' +  store_password +
+                            ' --alias ' + alias +
+                            ' --key-password ' + (key_password || store_password));
     }
 }
