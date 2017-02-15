@@ -5,10 +5,11 @@ import {IOsBuild} from './IOsBuild';
 
 var shell = require('shelljs');
 var project_flag = ' --project-dir "' + vscode.workspace.rootPath +'"';
+var config_file = vscode.workspace.rootPath+'/dist/vscode-appcelerator.config.json';
 
-export class AppceleratorBuild {
-    constructor() {
-
+export abstract class AppceleratorBuild {
+    static getConfigFile() {
+        return config_file;
     }
 
     static executeAppcCommand(cmd) {
@@ -33,4 +34,8 @@ export class AppceleratorBuild {
         console.log(command);
         return shell.exec(command, callback);
     }
+
+    abstract run();
+    abstract publish();
+    abstract clean();
 }
