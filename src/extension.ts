@@ -76,12 +76,14 @@ export function activate(context: vscode.ExtensionContext) {
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.run', () => {
+        vscode.workspace.saveAll();
         return selectBuild().then((platformBuild) => {
             return platformBuild.run();
         });
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.publish', () => {
+        vscode.workspace.saveAll();
         return selectBuild().then((platformBuild) => {
             return platformBuild.publish();
         });
