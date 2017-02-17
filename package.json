@@ -43,6 +43,11 @@
             "command": "extension.init",
             "title": "init",
             "category": "Appcelerator"
+        },
+        {
+            "command": "extension.lastCmd",
+            "title": "lastCmd",
+            "category": "Appcelerator"
         }]
     },
     "scripts": {

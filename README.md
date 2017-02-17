@@ -30,6 +30,7 @@ Appcelerator: run
 Appcelerator: publish
 Appcelerator: clean
 Appcelerator: init
+Appcelerator: lastCmd
 ~~~
 
 #### Appcelerator: login
@@ -51,6 +52,10 @@ Clean the project.
 #### Appcelerator: init
 
 Initialize extension. Use this command to refresh connected devices or ios provisioning profiles.
+
+#### Appcelerator: lastCmd
+
+Shortcut to execute last appc command again.
 
 ## About Author
 

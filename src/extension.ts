@@ -99,6 +99,10 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage('Please use vscode View > Integrated Terminal and type \'appc login\'!');
     }));
 
+    context.subscriptions.push(vscode.commands.registerCommand('extension.lastCmd', () => {
+        return AppceleratorBuild.executeLastAppcCommand();
+    }));
+
     init(true);
 }
 
