@@ -37,17 +37,23 @@ export class AndroidBuild extends AppceleratorBuild {
             var configText = fs.readFileSync(AppceleratorBuild.getConfigFile(), {"encoding":"utf8"});
             var config = JSON.parse(configText);
             keystore_path = config.android.publish.keystore_path;
+            store_password = config.android.publish.store_password;
             alias = config.android.publish.alias;
+            key_password = config.android.publish.key_password;
 
-            return vscode.window.showInputBox({ prompt: "Enter store_password:", password: true}).then(_store_password => {
-                store_password = _store_password;
-                return vscode.window.showInputBox({ prompt: "Enter key-password:", password: true})
-            })
-            .then(_key_password => {
-                key_password = _key_password;
+            if(!store_password) {
+                return vscode.window.showInputBox({ prompt: "Enter store_password:", password: true}).then(_store_password => {
+                    store_password = _store_password;
+                    return vscode.window.showInputBox({ prompt: "Enter key-password:", password: true})
+                })
+                .then(_key_password => {
+                    key_password = _key_password;
+                    this.execPublish(keystore_path, store_password, alias, key_password);
+                });
+            }
+            else {
                 this.execPublish(keystore_path, store_password, alias, key_password);
-            });
-
+            }
         }
         catch(e) {
             return vscode.window.showInputBox({ prompt: "Enter keystore path:"}).then(_path => {
