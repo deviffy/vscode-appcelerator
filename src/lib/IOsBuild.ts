@@ -8,7 +8,7 @@ export class IOsBuild extends AppceleratorBuild {
     }
 
     public runSimulator() {
-        return AppceleratorBuild.executeAppcCommand('run --platform ios --target emulator');
+        return AppceleratorBuild.executeAppcCommand('run --platform ios --target simulator');
     }
 
     public runDevice() {
