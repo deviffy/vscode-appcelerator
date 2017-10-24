@@ -2,6 +2,11 @@
     "name": "vscode-appcelerator",
     "displayName": "Extension for Appcelerator",
     "description": "Utility to use Visual Stodio Code on Appcelerator Studio projects.",
+    "icon": "images/appcelerator_icon.png",
+    "galleryBanner": {
+        "color": "#CA2127",
+        "theme": "dark"
+    },
     "version": "1.0.5",
     "publisher": "marcoduff",
     "engines": {
@@ -10,13 +15,19 @@
     "categories": [
         "Other"
     ],
+    "keywords": [
+        "appcelerator", "titanium", "mobile"
+    ],
     "activationEvents": [
         "workspaceContains:tiapp.xml"
     ],
+    "bugs": {
+        "url": "https://github.com/MarcoDuff/vscode-appcelerator/issues"
+    },
     "repository": {
 		"type": "git",
 		"url": "https://github.com/MarcoDuff/vscode-appcelerator.git"
-	},
+    },
     "main": "./out/src/extension",
     "contributes": {
         "commands": [{
