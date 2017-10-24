@@ -59,7 +59,7 @@ function selectBuild() {
         }
         else vscode.window.showErrorMessage('Extension is not ready, please try again later!');
     }).then<AppceleratorBuild>((platform) => {
-        if(platform === "android") return new AndroidBuild();
+        if(platform === "android") return new AndroidBuild(info);
         else if(platform == "iphone" || platform == "ipad") {
             if(info) return new IOsBuild(info, tiAppSetting);
             else throw new Error('Extension is not ready, please try again later!');
