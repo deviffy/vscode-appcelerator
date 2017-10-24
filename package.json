@@ -3,7 +3,7 @@
     "displayName": "Extension for Appcelerator",
     "description": "Utility to use Visual Stodio Code on Appcelerator Studio projects.",
     "version": "1.0.5",
-    "publisher": "MarcoDuff",
+    "publisher": "marcoduff",
     "engines": {
         "vscode": "^1.5.0"
     },
