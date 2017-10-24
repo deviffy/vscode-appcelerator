@@ -6,12 +6,26 @@ import {AppceleratorBuild} from './AppceleratorBuild';
 var path = require('path');
 
 export class AndroidBuild extends AppceleratorBuild {
-    constructor() {
+    constructor(private info) {
         super();
     }
     
-    private runSimulator() {
-        return AppceleratorBuild.executeAppcCommand('run --platform android --target emulator');
+    private runEmulator() {
+        var emulators = this.info.android.emulators
+        .filter(o => o.type == "avd");
+        return vscode.window.showQuickPick(emulators.map(a => a.id))
+            .then(deviceId => {
+                return AppceleratorBuild.executeAppcCommand('run --platform android --target emulator --device-id "' + deviceId + '"');
+            });
+    }
+    
+    private runGenymotion() {
+        var emulators = this.info.android.genymotion.avds
+        .filter(o => o.type == "genymotion");
+        return vscode.window.showQuickPick(emulators.map(a => a.id))
+            .then(deviceId => {
+                return AppceleratorBuild.executeAppcCommand('run --platform android --device-id "' + deviceId + '"');
+            });
     }
 
     private runDevice() {
@@ -23,8 +37,9 @@ export class AndroidBuild extends AppceleratorBuild {
     }
 
     public run() {
-        return vscode.window.showQuickPick(["simulator", "device"]).then((target) => {
-            if(target=="simulator") return this.runSimulator();
+        return vscode.window.showQuickPick(["emulator", "genymotion", "device"]).then((target) => {
+            if(target=="emulator") return this.runEmulator();
+            else if(target=="genymotion") return this.runGenymotion();
             else if(target=="device") return this.runDevice();
             else vscode.window.showErrorMessage("Unknown target "+target+"!");
         });
