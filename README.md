@@ -24,38 +24,14 @@ cd %USERPROFILE%\.vscode\extensions
 
 Press <kbd>F1</kbd> and enter one fo the following:
 
-~~~
-Appcelerator: login
-Appcelerator: run
-Appcelerator: publish
-Appcelerator: clean
-Appcelerator: init
-Appcelerator: lastCmd
-~~~
-
-#### Appcelerator: login
-
-Doing none... simply to remember you the cli syntax `appc login`
-
-#### Appcelerator: run
-
-Run a project–either build and run a Appcelerator application.
-
-#### Appcelerator: publish
-
-Create the binary to upload to Apple iTunes App Store or Andoird Google Store.
-
-#### Appcelerator: clean
-
-Clean the project.
-
-#### Appcelerator: init
-
-Initialize extension. Use this command to refresh connected devices or ios provisioning profiles.
-
-#### Appcelerator: lastCmd
-
-Shortcut to execute last appc command again.
+| Command |  |
+| --- |---|
+| `Appcelerator: login` | Doing none... simply to remember you the cli syntax `appc login`.
+| `Appcelerator: run` | Run a project–either build and run a Appcelerator application.
+| `Appcelerator: publish` | Create the binary to upload to Apple iTunes App Store or Andoird Google Store.
+| `Appcelerator: clean` | Clean the project.
+| `Appcelerator: init` | Initialize extension. Use this command to refresh connected devices or ios provisioning profiles.
+| `Appcelerator: lastCmd` | Shortcut to execute last appc command again.
 
 ## About Author
 

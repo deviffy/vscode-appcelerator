@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import * as fs from 'fs';
 
 import {AppceleratorBuild} from './AppceleratorBuild';
+import {SettingManager} from '../util/SettingManager';
 
 var path = require('path');
 
@@ -49,8 +49,7 @@ export class AndroidBuild extends AppceleratorBuild {
         var keystore_path, store_password, alias, key_password;
 
         try {
-            var configText = fs.readFileSync(AppceleratorBuild.getConfigFile(), {"encoding":"utf8"});
-            var config = JSON.parse(configText);
+            var config = SettingManager.getConfig();
             keystore_path = config.android.publish.keystore_path;
             store_password = config.android.publish.store_password;
             alias = config.android.publish.alias;
@@ -86,7 +85,7 @@ export class AndroidBuild extends AppceleratorBuild {
             .then(_key_password => {
                 key_password = _key_password;
                 this.execPublish(keystore_path, store_password, alias, key_password);
-                fs.writeFile(AppceleratorBuild.getConfigFile(),JSON.stringify({"android":{"publish":{"keystore_path":keystore_path,"alias":alias}}}));
+                SettingManager.updateConfig({"android":{"publish":{"keystore_path":keystore_path,"alias":alias}}});
             });
         }
     }
