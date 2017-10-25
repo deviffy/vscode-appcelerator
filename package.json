@@ -7,7 +7,7 @@
         "color": "#CA2127",
         "theme": "dark"
     },
-    "version": "1.0.5",
+    "version": "1.0.6",
     "publisher": "marcoduff",
     "engines": {
         "vscode": "^1.5.0"
@@ -16,7 +16,9 @@
         "Other"
     ],
     "keywords": [
-        "appcelerator", "titanium", "mobile"
+        "appcelerator",
+        "titanium",
+        "mobile"
     ],
     "activationEvents": [
         "workspaceContains:tiapp.xml"
@@ -25,41 +27,43 @@
         "url": "https://github.com/MarcoDuff/vscode-appcelerator/issues"
     },
     "repository": {
-		"type": "git",
-		"url": "https://github.com/MarcoDuff/vscode-appcelerator.git"
+        "type": "git",
+        "url": "https://github.com/MarcoDuff/vscode-appcelerator.git"
     },
     "main": "./out/src/extension",
     "contributes": {
-        "commands": [{
-            "command": "extension.login",
-            "title": "login",
-            "category": "Appcelerator"
-        },
-        {
-            "command": "extension.run",
-            "title": "run",
-            "category": "Appcelerator"
-        },
-        {
-            "command": "extension.publish",
-            "title": "publish",
-            "category": "Appcelerator"
-        },
-        {
-            "command": "extension.clean",
-            "title": "clean",
-            "category": "Appcelerator"
-        },
-        {
-            "command": "extension.init",
-            "title": "init",
-            "category": "Appcelerator"
-        },
-        {
-            "command": "extension.lastCmd",
-            "title": "lastCmd",
-            "category": "Appcelerator"
-        }]
+        "commands": [
+            {
+                "command": "extension.login",
+                "title": "login",
+                "category": "Appcelerator"
+            },
+            {
+                "command": "extension.run",
+                "title": "run",
+                "category": "Appcelerator"
+            },
+            {
+                "command": "extension.publish",
+                "title": "publish",
+                "category": "Appcelerator"
+            },
+            {
+                "command": "extension.clean",
+                "title": "clean",
+                "category": "Appcelerator"
+            },
+            {
+                "command": "extension.init",
+                "title": "init",
+                "category": "Appcelerator"
+            },
+            {
+                "command": "extension.lastCmd",
+                "title": "lastCmd",
+                "category": "Appcelerator"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",

@@ -1,3 +1,10 @@
+## 1.0.6 - 27 Oct 2017
+
+* `login` command;
+* Add settings manager;
+* Improve marketplace presentation;
+* Minor bugfix.
+
 ## 1.0.5 - 24 Oct 2017
 
 * Add genymotion support (thanks to daudirsch) - refs #1.
@@ -13,7 +20,7 @@
 
 ## 1.0.2 - 17 Feb 2017
 
-* `lastCmd` command;
+* `lastCmd` command.
 
 ## 1.0.1 - 15 Feb 2017
 
