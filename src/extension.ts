@@ -5,6 +5,7 @@ import * as vscode from 'vscode';
 import {AppceleratorBuild} from './lib/AppceleratorBuild';
 import {AndroidBuild} from './lib/AndroidBuild';
 import {IOsBuild} from './lib/IOsBuild';
+import {SettingManager} from './util/SettingManager';
 
 var shell = require('shelljs');
 var info;
@@ -49,6 +50,64 @@ function init(silent = true) {
     }).catch((err) => {
         return vscode.window.showErrorMessage(err);
     });
+}
+
+function login() {
+    console.log("login");
+    var username, password, organization;
+
+    try {
+        var config = SettingManager.getConfig();
+        username = config.appcelerator.username;
+        password = config.appcelerator.password;
+        organization = config.appcelerator.organization;
+
+        if(!password) {
+            return vscode.window.showInputBox({ prompt: "Enter password:", password: false}).then(_password => {
+                password = _password;
+                execLogin(username, password, organization);
+            });
+        }
+        else {
+            execLogin(username, password, organization);
+        }
+    }
+    catch(e) {
+        return vscode.window.showInputBox({ prompt: "Enter username:", password: false}).then(_username => {
+            username = _username;
+            return vscode.window.showInputBox({ prompt: "Enter password:", password: true})
+        })
+        .then(_password => {
+            password = _password;
+            return vscode.window.showInputBox({ prompt: "Enter organization id (leave blank if no organization):", password: false})
+        })
+        .then(_organization => {
+            organization = _organization;
+            SettingManager.updateConfig({"appcelerator":{"username":username,"organization":organization}});
+            execLogin(username, password, organization);
+        });
+    }
+}
+
+function execLogin(username, password, organization) {
+    var cmd = organization.length>0?'login --username "'+username+'" --password "'+password+'" -O "'+organization+'"':'login --username "'+username+'" --password "'+password+'"';
+   
+    AppceleratorBuild.executeAppcCommandSilent(cmd, function(code, output) {
+        console.log("execLogin",code, output);
+        if (code === 0) {
+            try {
+                console.log(output);
+                return vscode.window.showInformationMessage("Login done!");
+            }
+            catch(err) {
+                console.log(err);
+                return vscode.window.showErrorMessage(err);
+            }
+        } else {
+            console.log(output);
+            return vscode.window.showErrorMessage("Error: "+code);
+        }
+    });   
 }
 
 function selectBuild() {
@@ -96,7 +155,7 @@ export function activate(context: vscode.ExtensionContext) {
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.login', () => {
-        vscode.window.showInformationMessage('Please use vscode View > Integrated Terminal and type \'appc login\'!');
+        return login();
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.lastCmd', () => {
