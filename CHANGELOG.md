@@ -1,6 +1,6 @@
 ## 1.0.5 - 24 Oct 2017
 
-* Add genymotion support (thanks to daudirsch) - refs 1.
+* Add genymotion support (thanks to daudirsch) - refs #1.
 
 ## 1.0.4 - 03 Oct 2017
 
