@@ -26,7 +26,7 @@ Press <kbd>F1</kbd> and enter one fo the following:
 
 | Command |  |
 | --- |---|
-| `Appcelerator: login` | Doing none... simply to remember you the cli syntax `appc login`.
+| `Appcelerator: login` | Login in the appcelerator platform.
 | `Appcelerator: run` | Run a project–either build and run a Appcelerator application.
 | `Appcelerator: publish` | Create the binary to upload to Apple iTunes App Store or Andoird Google Store.
 | `Appcelerator: clean` | Clean the project.
