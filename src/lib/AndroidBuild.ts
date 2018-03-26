@@ -11,8 +11,8 @@ export class AndroidBuild extends AppceleratorBuild {
     }
     
     private runEmulator() {
-        var emulators = this.info.android.emulators
-        .filter(o => o.type == "avd");
+        var emulators = this.info.android.emulators;
+        //.filter(o => o.type == "avd");
         return vscode.window.showQuickPick(emulators.map(a => a.id))
             .then(deviceId => {
                 return AppceleratorBuild.executeAppcCommand('run --platform android --target emulator --device-id "' + deviceId + '"');
